@@ -1,0 +1,68 @@
+package me.szymanski.composemtest.view
+
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import composemtest.composeapp.generated.resources.Res
+import composemtest.composeapp.generated.resources.ic_search_48
+import me.szymanski.composemtest.style.Colors
+import me.szymanski.composemtest.style.Dimens
+import me.szymanski.composemtest.style.Font
+import org.jetbrains.compose.resources.painterResource
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchListToolbar(
+    searchValue: () -> String,
+    searchIconDescription: () -> String,
+    onValueChange: (String) -> Unit,
+) {
+    TopAppBar(
+        title = {
+            OutlinedTextField(
+                value = searchValue(),
+                singleLine = true,
+                onValueChange = {
+                    onValueChange(it)
+                },
+                textStyle = TextStyle(
+                    fontSize = Dimens.barTextSize,
+                    fontFamily = Font.lato(),
+                    color = Colors.barText(),
+                ),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = Dimens.barInputPadding),
+                colors = OutlinedTextFieldDefaults.colors().copy(
+                    focusedIndicatorColor = Colors.barText(),
+                    unfocusedIndicatorColor = Colors.barTextAlpha(),
+                )
+            )
+        },
+        navigationIcon = {
+            Image(
+                painter = painterResource(Res.drawable.ic_search_48),
+                contentDescription = searchIconDescription(),
+                colorFilter = ColorFilter.tint(Colors.barText())
+            )
+        },
+        colors = topAppBarColors(
+            containerColor = Colors.colorPrimary(),
+        ),
+    )
+}
