@@ -6,8 +6,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import me.szymanski.composemtest.view.Error
+import me.szymanski.composemtest.view.Loading
 import me.szymanski.composemtest.view.SearchListToolbar
-import me.szymanski.composemtest.view.list.data.ListItem.TitleDescriptionClickableItem
+import me.szymanski.composemtest.view.data.TitleDescriptionClickableItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,6 +33,8 @@ fun ListScreen(
         onRefresh = onPullToRefresh,
         modifier = Modifier.fillMaxSize()
     ) {
-
+        Error(error, errorIconDescription)
+        Loading(centerLoading)
+        ItemsList(listVisible, items, hasNextPage, onLoadNextPage)
     }
 }

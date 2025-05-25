@@ -15,8 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import composemtest.composeapp.generated.resources.Res
-import composemtest.composeapp.generated.resources.ic_search_48
+import composemtest.composeapp.generated.resources.ic_search_32
 import me.szymanski.composemtest.style.Colors
 import me.szymanski.composemtest.style.Dimens
 import me.szymanski.composemtest.style.Font
@@ -45,9 +46,7 @@ fun SearchListToolbar(
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = Dimens.barInputPadding),
+                modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors().copy(
                     focusedIndicatorColor = Colors.barText(),
                     unfocusedIndicatorColor = Colors.barTextAlpha(),
@@ -56,9 +55,10 @@ fun SearchListToolbar(
         },
         navigationIcon = {
             Image(
-                painter = painterResource(Res.drawable.ic_search_48),
+                modifier = Modifier.padding(4.dp),
+                painter = painterResource(Res.drawable.ic_search_32),
                 contentDescription = searchIconDescription(),
-                colorFilter = ColorFilter.tint(Colors.barText())
+                colorFilter = ColorFilter.tint(Colors.barText()),
             )
         },
         colors = topAppBarColors(
