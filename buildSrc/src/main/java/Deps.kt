@@ -1,9 +1,10 @@
 @Suppress("ConstPropertyName", "MemberVisibilityCanBePrivate")
 object Deps {
     object Android {
-        const val agpVersion = "8.10.0"
+        const val agpVersion = "8.10.1"
         const val libraryPlugin = "com.android.library"
         const val appPlugin = "com.android.application"
+        const val multiplatformLibraryPlugin = "com.android.kotlin.multiplatform.library"
     }
 
     object Kotlin {
@@ -11,6 +12,7 @@ object Deps {
         const val version = "2.1.20"
         const val composePlugin = "org.jetbrains.kotlin.plugin.compose"
         const val multiplatformPlugin = "org.jetbrains.kotlin.multiplatform"
+        const val jvmPlugin = "org.jetbrains.kotlin.jvm"
 
         // https://github.com/Kotlin/kotlinx.coroutines
         const val coroutinesVersion = "1.10.2"
@@ -46,7 +48,11 @@ object Deps {
     }
 
     object Koin {
-        // https://insert-koin.io/docs/reference/koin-mp/kmp/
-        const val core = "io.insert-koin:koin-core:3.2.0"
+        const val version = "4.1.0-RC1"
+
+        // https://insert-koin.io/docs/4.1/reference/koin-compose/compose/#koin-compose-multiplatform-vs-koin-android-jetpack-compose
+        const val compose = "io.insert-koin:koin-compose:$version"
+        const val viewModel = "io.insert-koin:koin-compose-viewmodel:$version"
+        const val navigation = "io.insert-koin:koin-compose-viewmodel-navigation:$version"
     }
 }

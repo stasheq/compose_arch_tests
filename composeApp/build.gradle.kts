@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -38,7 +39,10 @@ kotlin {
             implementation(Deps.Kotlin.coroutinesCore)
             implementation(Deps.Jetpack.composeNavigation)
             implementation(Deps.Jetpack.composeViewModel)
-            implementation(Deps.Koin.core)
+            implementation(Deps.Koin.compose)
+            implementation(Deps.Koin.viewModel)
+            implementation(Deps.Koin.navigation)
+            implementation(project(":core"))
         }
         iosMain.dependencies {
             implementation(Deps.Ktor.iOSEngine)

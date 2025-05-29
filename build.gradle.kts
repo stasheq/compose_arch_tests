@@ -5,4 +5,6 @@ plugins {
     id(Deps.Kotlin.composePlugin).version(Deps.Kotlin.version).apply(false)
     id(Deps.Kotlin.multiplatformPlugin).version(Deps.Kotlin.version).apply(false)
     id(Deps.Kotlin.serializationPlugin).version(Deps.Kotlin.version).apply(false)
+    id(Deps.Kotlin.jvmPlugin).version(Deps.Kotlin.version).apply(false)
+    id(Deps.Android.multiplatformLibraryPlugin).version(Deps.Android.agpVersion).apply(false)
 }
