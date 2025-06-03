@@ -13,6 +13,7 @@ object Deps {
         const val composePlugin = "org.jetbrains.kotlin.plugin.compose"
         const val multiplatformPlugin = "org.jetbrains.kotlin.multiplatform"
         const val jvmPlugin = "org.jetbrains.kotlin.jvm"
+        const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
 
         // https://github.com/Kotlin/kotlinx.coroutines
         const val coroutinesVersion = "1.10.2"
