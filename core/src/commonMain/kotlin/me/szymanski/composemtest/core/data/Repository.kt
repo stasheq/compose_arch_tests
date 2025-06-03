@@ -1,6 +1,6 @@
 package me.szymanski.composemtest.core.data
 
-import me.szymanski.composemtest.core.api.ApiRepository
+import me.szymanski.composemtest.core.api.data.ApiRepository
 
 data class Repository(
     val id: String,

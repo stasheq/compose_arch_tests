@@ -38,6 +38,7 @@ kotlin {
             implementation(Deps.Kotlin.coroutinesCore)
             implementation(Deps.Jetpack.composeNavigation)
             implementation(Deps.Jetpack.composeViewModel)
+            implementation(Deps.Koin.core)
             implementation(Deps.Koin.compose)
             implementation(Deps.Koin.viewModel)
             implementation(Deps.Koin.navigation)

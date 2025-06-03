@@ -5,10 +5,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import me.szymanski.composemtest.core.api.data.ApiError
+import me.szymanski.composemtest.core.log
+import me.szymanski.composemtest.core.logError
 
 abstract class LoadPagedListUseCase<Item, Page, Error>(
     private val firstPageInfo: Page,
-    private val logger: Logger,
 ) {
     val error = MutableStateFlow<Error?>(null)
     val list = MutableStateFlow<List<Item>?>(null)
@@ -31,7 +33,7 @@ abstract class LoadPagedListUseCase<Item, Page, Error>(
             currentPage = firstPageInfo
         }
         if (lastJob?.isActive == true) {
-            logger.log("Not loading next page because previous loading is not finished yet")
+            log("Not loading next page because previous loading is not finished yet")
             return
         }
         lastJob = scope.launch {
@@ -50,7 +52,7 @@ abstract class LoadPagedListUseCase<Item, Page, Error>(
                 currentPage = nextPageInfo(currentPage)
                 loadingFinished(result.results, null, result.hasNext)
             } catch (e: ApiError) {
-                logger.log("Loading page failed", e)
+                logError("Loading page failed", e)
                 loadingFinished(emptyList(), mapError(e), false)
             }
         }

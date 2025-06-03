@@ -21,7 +21,7 @@ object Deps {
         const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
         // https://github.com/Kotlin/kotlinx.serialization/
-        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1"
+        const val serializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1"
         const val serializationPlugin = "org.jetbrains.kotlin.plugin.serialization"
     }
 
@@ -44,6 +44,8 @@ object Deps {
         // https://github.com/ktorio/ktor
         const val version = "3.1.3"
         const val core = "io.ktor:ktor-client-core:$version"
+        const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
+        const val json = "io.ktor:ktor-serialization-kotlinx-json:$version"
         const val androidEngine = "io.ktor:ktor-client-okhttp:$version"
         const val iOSEngine = "io.ktor:ktor-client-darwin:$version"
     }
@@ -51,7 +53,8 @@ object Deps {
     object Koin {
         const val version = "4.1.0-RC1"
 
-        // https://insert-koin.io/docs/4.1/reference/koin-compose/compose/#koin-compose-multiplatform-vs-koin-android-jetpack-compose
+        // https://insert-koin.io/docs/reference/koin-compose/compose/
+        const val core = "io.insert-koin:koin-core:$version"
         const val compose = "io.insert-koin:koin-compose:$version"
         const val viewModel = "io.insert-koin:koin-compose-viewmodel:$version"
         const val navigation = "io.insert-koin:koin-compose-viewmodel-navigation:$version"

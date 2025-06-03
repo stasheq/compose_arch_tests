@@ -1,6 +1,7 @@
 plugins {
     id(Deps.Kotlin.multiplatformPlugin)
     id(Deps.Android.multiplatformLibraryPlugin)
+    id(Deps.Kotlin.serializationPlugin)
 }
 
 kotlin {
@@ -35,17 +36,23 @@ kotlin {
             dependencies {
                 implementation(Deps.Kotlin.stdLib)
                 implementation(Deps.Kotlin.coroutinesCore)
+                implementation(Deps.Kotlin.serializationJson)
                 implementation(Deps.Ktor.core)
+                implementation(Deps.Ktor.contentNegotiation)
+                implementation(Deps.Ktor.json)
+                implementation(Deps.Koin.core)
             }
         }
 
         androidMain {
             dependencies {
+                implementation(Deps.Ktor.androidEngine)
             }
         }
 
         iosMain {
             dependencies {
+                implementation(Deps.Ktor.iOSEngine)
             }
         }
     }

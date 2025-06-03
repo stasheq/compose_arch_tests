@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import me.szymanski.composemtest.core.coreModule
 import me.szymanski.composemtest.screens.list.ListScreenViewModel
 import me.szymanski.composemtest.style.Colors
 import me.szymanski.composemtest.view.list.ListScreen
@@ -20,9 +21,11 @@ import org.koin.dsl.module
 @Preview
 fun App() {
     KoinApplication(application = {
-        modules(module {
-            viewModelOf(::ListScreenViewModel)
-        })
+        modules(
+            coreModule,
+            module {
+                viewModelOf(::ListScreenViewModel)
+            })
     }) {
         Surface(
             color = Colors.background(),

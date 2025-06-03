@@ -1,18 +1,21 @@
 package me.szymanski.composemtest.core.usecase
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import me.szymanski.composemtest.core.Config
+import me.szymanski.composemtest.core.api.RestApi
+import me.szymanski.composemtest.core.api.data.ApiError
 import me.szymanski.composemtest.core.data.ErrorType
 import me.szymanski.composemtest.core.data.Repository
 import kotlin.time.Duration.Companion.seconds
 
-class GetReposListUseCase constructor(
+class GetReposListUseCase(
     private val restApi: RestApi,
-    private val restConfig: RestConfig
 ) : LoadPagedListUseCase<Repository, Int, ErrorType>(1) {
 
-    var userName = restConfig.defaultUser
+    var userName = Config.INITIAL_USER
     private var updateUserNameDebounceJob: Job? = null
 
     fun onUserNameInput(scope: CoroutineScope, user: String) {
@@ -25,16 +28,16 @@ class GetReposListUseCase constructor(
         }
     }
 
-     suspend fun getPage(page: Int): LoadingResult<Repository> {
+    override suspend fun getPage(page: Int): LoadingResult<Repository> {
         val result = restApi.getRepositories(userName, page).map { Repository(it) }
-        return LoadingResult(result, result.size == restConfig.pageLimit)
+        return LoadingResult(result, result.size == Config.Api.PAGE_SIZE)
     }
 
-     fun mapError(e: ApiError): ErrorType = when {
+    override fun mapError(e: ApiError): ErrorType = when {
         e is ApiError.HttpErrorResponse && e.code == 404 -> ErrorType.USER_DOESNT_EXIST
         e is ApiError.NoConnection -> ErrorType.NO_CONNECTION
         else -> ErrorType.OTHER
     }
 
-     fun nextPageInfo(page: Int): Int = page + 1
+    override fun nextPageInfo(page: Int): Int = page + 1
 }
