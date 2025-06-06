@@ -1,4 +1,4 @@
-package me.szymanski.composemtest.view.list
+package me.szymanski.composemtest.screens.list
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn

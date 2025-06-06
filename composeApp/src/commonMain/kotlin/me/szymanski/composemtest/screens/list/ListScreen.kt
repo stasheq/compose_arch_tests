@@ -1,4 +1,4 @@
-package me.szymanski.composemtest.view.list
+package me.szymanski.composemtest.screens.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -6,46 +6,45 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import me.szymanski.composemtest.core.platform
-import me.szymanski.composemtest.screens.list.ListScreenViewModel
+import composemtest.composeapp.generated.resources.Res
+import composemtest.composeapp.generated.resources.icon_error
+import composemtest.composeapp.generated.resources.icon_search
 import me.szymanski.composemtest.view.Error
 import me.szymanski.composemtest.view.Loading
 import me.szymanski.composemtest.view.SearchListToolbar
-import me.szymanski.composemtest.view.data.TitleDescriptionClickableItem
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreen(
-    items: () -> List<TitleDescriptionClickableItem>,
-    listVisible: () -> Boolean,
-    centerLoading: () -> Boolean,
-    pullLoading: () -> Boolean,
-    hasNextPage: () -> Boolean,
-    error: () -> String?,
-    errorIconDescription: () -> String,
-    searchIconDescription: () -> String,
-    searchValue: () -> String,
-    onValueChange: (String) -> Unit,
-    onPullToRefresh: () -> Unit,
-    onLoadNextPage: () -> Unit
-) = Column {
+fun ListScreen() = Column {
     val viewModel = koinViewModel<ListScreenViewModel>()
-    SearchListToolbar(searchValue, searchIconDescription, onValueChange)
+
+    val userName by viewModel.userName.collectAsState()
+    SearchListToolbar({ userName }, { stringResource(Res.string.icon_search) }, viewModel::onValueChange)
+
+    val pullLoading by viewModel.pullLoading.collectAsState()
     PullToRefreshBox(
-        isRefreshing = pullLoading(),
-        onRefresh = onPullToRefresh,
+        isRefreshing = pullLoading,
+        onRefresh = viewModel::onPullToRefresh,
         modifier = Modifier.fillMaxSize()
     ) {
-        Error(error, errorIconDescription)
-        Loading(centerLoading)
-        val itemsList = viewModel.list.collectAsState()
+        val error by viewModel.error.collectAsState()
+        Error({ error?.let { stringResource(it) } }, { stringResource(Res.string.icon_error) })
+
+        val centerLoading by viewModel.centerLoading.collectAsState()
+        Loading { centerLoading }
+
+        val itemsList by viewModel.items.collectAsState()
+        val listVisible by viewModel.listVisible.collectAsState()
+        val hasNextPage by viewModel.hasNextPage.collectAsState()
         ItemsList(
-            isListVisible = listVisible,
-            items = { itemsList.value?.map { TitleDescriptionClickableItem(id = it, text = it, description = platform()) } ?: emptyList() },
-            hasNextPage = hasNextPage,
-            onLoadNextPage = onLoadNextPage
+            isListVisible = { listVisible },
+            items = { itemsList },
+            hasNextPage = { hasNextPage },
+            onLoadNextPage = viewModel::loadNextPage
         )
     }
 }

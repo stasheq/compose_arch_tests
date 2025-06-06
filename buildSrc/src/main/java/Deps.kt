@@ -46,6 +46,7 @@ object Deps {
         const val core = "io.ktor:ktor-client-core:$version"
         const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
         const val json = "io.ktor:ktor-serialization-kotlinx-json:$version"
+        const val logging = "io.ktor:ktor-client-logging:$version"
         const val androidEngine = "io.ktor:ktor-client-okhttp:$version"
         const val iOSEngine = "io.ktor:ktor-client-darwin:$version"
     }

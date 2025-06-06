@@ -4,9 +4,13 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import me.szymanski.composemtest.core.Config
+import me.szymanski.composemtest.core.log as nativeLog
 
 fun createHttpClient() = HttpClient {
     install(HttpTimeout) {
@@ -20,8 +24,13 @@ fun createHttpClient() = HttpClient {
             ignoreUnknownKeys = true
         })
     }
+    install(Logging) {
+        logger = object : Logger {
+            override fun log(message: String) = nativeLog(message)
+        }
+        level = if (Config.Api.LOG_ENABLED) LogLevel.ALL else LogLevel.NONE
+    }
     defaultRequest {
-        host = Config.Api.HOST
-        port = Config.Api.PORT
+        url(Config.Api.HOST)
     }
 }

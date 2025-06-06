@@ -19,8 +19,8 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Error(
-    error: () -> String?,
-    errorIconDescription: () -> String
+    error: @Composable () -> String?,
+    errorIconDescription: @Composable () -> String
 ) = error()?.let {
     Column(
         modifier = Modifier

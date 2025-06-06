@@ -40,6 +40,7 @@ kotlin {
                 implementation(Deps.Ktor.core)
                 implementation(Deps.Ktor.contentNegotiation)
                 implementation(Deps.Ktor.json)
+                implementation(Deps.Ktor.logging)
                 implementation(Deps.Koin.core)
             }
         }

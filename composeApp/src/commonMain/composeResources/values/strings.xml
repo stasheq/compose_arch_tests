@@ -1,0 +1,6 @@
+<resources>
+    <string name="loading_error_other">Failed to download list</string>
+    <string name="loading_error_doesnt_exist">Selected user doesn\'t exist</string>
+    <string name="icon_error">Warning icon</string>
+    <string name="icon_search">Search icon</string>
+</resources>

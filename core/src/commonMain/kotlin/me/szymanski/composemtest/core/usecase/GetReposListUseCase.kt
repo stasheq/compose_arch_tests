@@ -3,6 +3,7 @@ package me.szymanski.composemtest.core.usecase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import me.szymanski.composemtest.core.Config
 import me.szymanski.composemtest.core.api.RestApi
@@ -15,27 +16,26 @@ class GetReposListUseCase(
     private val restApi: RestApi,
 ) : LoadPagedListUseCase<Repository, Int, ErrorType>(1) {
 
-    var userName = Config.INITIAL_USER
+    val userName = MutableStateFlow(Config.INITIAL_USER)
     private var updateUserNameDebounceJob: Job? = null
 
     fun onUserNameInput(scope: CoroutineScope, user: String) {
-        if (userName == user) return
+        if (userName.value == user) return
+        userName.tryEmit(user)
         updateUserNameDebounceJob?.cancel()
         updateUserNameDebounceJob = scope.launch {
             delay(1.seconds)
-            userName = user
             if (user.isNotBlank()) loadNextPage(scope, true)
         }
     }
 
     override suspend fun getPage(page: Int): LoadingResult<Repository> {
-        val result = restApi.getRepositories(userName, page).map { Repository(it) }
+        val result = restApi.getRepositories(userName.value, page).map { Repository(it) }
         return LoadingResult(result, result.size == Config.Api.PAGE_SIZE)
     }
 
     override fun mapError(e: ApiError): ErrorType = when {
         e is ApiError.HttpErrorResponse && e.code == 404 -> ErrorType.USER_DOESNT_EXIST
-        e is ApiError.NoConnection -> ErrorType.NO_CONNECTION
         else -> ErrorType.OTHER
     }
 

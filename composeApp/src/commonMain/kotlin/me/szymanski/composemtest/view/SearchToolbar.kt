@@ -27,7 +27,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun SearchListToolbar(
     searchValue: () -> String,
-    searchIconDescription: () -> String,
+    searchIconDescription: @Composable () -> String,
     onValueChange: (String) -> Unit,
 ) {
     TopAppBar(
