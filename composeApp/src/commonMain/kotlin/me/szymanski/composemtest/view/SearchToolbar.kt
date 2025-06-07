@@ -29,40 +29,38 @@ fun SearchListToolbar(
     searchValue: () -> String,
     searchIconDescription: @Composable () -> String,
     onValueChange: (String) -> Unit,
-) {
-    TopAppBar(
-        title = {
-            OutlinedTextField(
-                value = searchValue(),
-                singleLine = true,
-                onValueChange = {
-                    onValueChange(it)
-                },
-                textStyle = TextStyle(
-                    fontSize = Dimens.barTextSize,
-                    fontFamily = Font.lato(),
-                    color = Colors.barText(),
-                ),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text
-                ),
-                modifier = Modifier.fillMaxWidth(),
-                colors = OutlinedTextFieldDefaults.colors().copy(
-                    focusedIndicatorColor = Colors.barText(),
-                    unfocusedIndicatorColor = Colors.barTextAlpha(),
-                )
+) = TopAppBar(
+    title = {
+        OutlinedTextField(
+            value = searchValue(),
+            singleLine = true,
+            onValueChange = {
+                onValueChange(it)
+            },
+            textStyle = TextStyle(
+                fontSize = Dimens.barTextSize,
+                fontFamily = Font.lato(),
+                color = Colors.barText(),
+            ),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors().copy(
+                focusedIndicatorColor = Colors.barText(),
+                unfocusedIndicatorColor = Colors.barTextAlpha(),
             )
-        },
-        navigationIcon = {
-            Image(
-                modifier = Modifier.padding(4.dp),
-                painter = painterResource(Res.drawable.ic_search_32),
-                contentDescription = searchIconDescription(),
-                colorFilter = ColorFilter.tint(Colors.barText()),
-            )
-        },
-        colors = topAppBarColors(
-            containerColor = Colors.colorPrimary(),
-        ),
-    )
-}
+        )
+    },
+    navigationIcon = {
+        Image(
+            modifier = Modifier.padding(4.dp),
+            painter = painterResource(Res.drawable.ic_search_32),
+            contentDescription = searchIconDescription(),
+            colorFilter = ColorFilter.tint(Colors.barText()),
+        )
+    },
+    colors = topAppBarColors(
+        containerColor = Colors.colorPrimary(),
+    ),
+)

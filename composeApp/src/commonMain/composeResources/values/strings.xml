@@ -3,4 +3,16 @@
     <string name="loading_error_doesnt_exist">Selected user doesn\'t exist</string>
     <string name="icon_error">Warning icon</string>
     <string name="icon_search">Search icon</string>
+    <string name="icon_back">Back icon</string>
+    <string name="loading_details_error">Can\'t download details</string>
+    <string name="detail_name">Name</string>
+    <string name="detail_description">Description</string>
+    <string name="detail_private">Private</string>
+    <string name="detail_owner">Owner</string>
+    <string name="detail_forks">Forks</string>
+    <string name="detail_language">Language</string>
+    <string name="detail_issues">Issues count</string>
+    <string name="detail_license">License</string>
+    <string name="detail_watchers">Watchers count</string>
+    <string name="detail_branch">Default branch</string>
 </resources>
