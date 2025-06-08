@@ -8,12 +8,15 @@ import composemtest.composeapp.generated.resources.loading_error_other
 import me.szymanski.composemtest.core.data.ErrorType
 import me.szymanski.composemtest.core.data.Repository
 import me.szymanski.composemtest.core.usecase.GetReposListUseCase
+import me.szymanski.composemtest.navigation.NavigationScreen
+import me.szymanski.composemtest.navigation.Navigator
 import me.szymanski.composemtest.utils.combine
 import me.szymanski.composemtest.utils.map
 import me.szymanski.composemtest.view.data.TitleDescriptionClickableItem
 
 class ListScreenViewModel(
-    private val reposUseCase: GetReposListUseCase
+    private val navigator: Navigator,
+    private val reposUseCase: GetReposListUseCase,
 ) : ViewModel() {
 
     init {
@@ -55,7 +58,7 @@ class ListScreenViewModel(
     fun loadNextPage() = reposUseCase.loadNextPage(viewModelScope, false)
 
     private fun List<Repository>.mapToUI() = map {
-        TitleDescriptionClickableItem(it.id, it.name, it.description) { }
+        TitleDescriptionClickableItem(it.id, it.name, it.description) { navigator.openScreen(NavigationScreen.Details(it.owner, it.name)) }
     }
 
     fun onValueChange(value: String) {

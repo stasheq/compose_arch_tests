@@ -17,12 +17,14 @@ import composemtest.composeapp.generated.resources.loading_details_error
 import me.szymanski.composemtest.core.data.DetailType
 import me.szymanski.composemtest.core.usecase.GetDetailsUseCase
 import me.szymanski.composemtest.navigation.NavigationScreen
+import me.szymanski.composemtest.navigation.Navigator
 import me.szymanski.composemtest.screens.details.data.DetailsItem
 import me.szymanski.composemtest.utils.combine
 import me.szymanski.composemtest.utils.map
 
 class DetailsScreenViewModel(
-    private val detailsUseCase: GetDetailsUseCase
+    private val navigator: Navigator,
+    private val detailsUseCase: GetDetailsUseCase,
 ) : ViewModel() {
 
     val items = detailsUseCase.items.map(viewModelScope) { list ->
@@ -46,11 +48,7 @@ class DetailsScreenViewModel(
         DetailType.BRANCH -> Res.string.detail_branch
     }
 
-    fun setArgs(args: NavigationScreen.Details) {
-        detailsUseCase.loadDetails(viewModelScope, args.owner, args.name, false)
-    }
+    fun setArgs(args: NavigationScreen.Details) = detailsUseCase.loadDetails(viewModelScope, args.owner, args.name, false)
 
-    fun onBackClick() {
-        // TODO
-    }
+    fun onBackClick() = navigator.onBackClick()
 }
