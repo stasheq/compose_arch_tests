@@ -1,6 +1,7 @@
 package me.szymanski.composemtest
 
 import me.szymanski.composemtest.core.coreModule
+import me.szymanski.composemtest.core.log.Logger
 import me.szymanski.composemtest.navigation.NavigationViewModel
 import me.szymanski.composemtest.navigation.Navigator
 import me.szymanski.composemtest.screens.details.DetailsScreenViewModel
@@ -10,8 +11,13 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
-fun KoinApplication.koinModules() {
+fun KoinApplication.koinModules(
+    logger: Logger
+) {
     modules(
+        module {
+            single<Logger> { logger }
+        },
         coreModule,
         module {
             singleOf(::Navigator)

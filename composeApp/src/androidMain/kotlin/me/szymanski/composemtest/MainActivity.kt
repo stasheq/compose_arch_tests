@@ -10,7 +10,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            App { finish() }
+            App(
+                logger = AndroidLogger()
+            ) { finish() }
         }
     }
 }
@@ -18,5 +20,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App {}
+    App(
+        logger = AndroidLogger()
+    ) {}
 }

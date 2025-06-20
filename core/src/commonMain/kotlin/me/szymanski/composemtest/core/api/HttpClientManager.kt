@@ -5,14 +5,16 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import me.szymanski.composemtest.core.Config
-import me.szymanski.composemtest.core.log as nativeLog
+import me.szymanski.composemtest.core.log.Logger
+import io.ktor.client.plugins.logging.Logger as KtorLogger
 
-fun createHttpClient() = HttpClient {
+fun createHttpClient(
+    appLogger: Logger
+) = HttpClient {
     install(HttpTimeout) {
         requestTimeoutMillis = Config.Api.TIMEOUT_MS
     }
@@ -25,8 +27,8 @@ fun createHttpClient() = HttpClient {
         })
     }
     install(Logging) {
-        logger = object : Logger {
-            override fun log(message: String) = nativeLog(message)
+        logger = object : KtorLogger {
+            override fun log(message: String) = appLogger.log(message)
         }
         level = if (Config.Api.LOG_ENABLED) LogLevel.ALL else LogLevel.NONE
     }

@@ -10,11 +10,13 @@ import me.szymanski.composemtest.core.api.RestApi
 import me.szymanski.composemtest.core.api.data.ApiError
 import me.szymanski.composemtest.core.data.ErrorType
 import me.szymanski.composemtest.core.data.Repository
+import me.szymanski.composemtest.core.log.Logger
 import kotlin.time.Duration.Companion.seconds
 
 class GetReposListUseCase(
     private val restApi: RestApi,
-) : LoadPagedListUseCase<Repository, Int, ErrorType>(1) {
+    logger: Logger,
+) : LoadPagedListUseCase<Repository, Int, ErrorType>(1, logger) {
 
     val userName = MutableStateFlow(Config.INITIAL_USER)
     private var updateUserNameDebounceJob: Job? = null

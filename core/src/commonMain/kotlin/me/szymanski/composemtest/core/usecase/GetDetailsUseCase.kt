@@ -8,9 +8,11 @@ import me.szymanski.composemtest.core.api.RestApi
 import me.szymanski.composemtest.core.data.DetailType
 import me.szymanski.composemtest.core.data.RepositoryDetail
 import me.szymanski.composemtest.core.data.RepositoryDetails
-import me.szymanski.composemtest.core.logError
+import me.szymanski.composemtest.core.log.Logger
+import me.szymanski.composemtest.core.log.logError
 
 class GetDetailsUseCase(
+    private val logger: Logger,
     private val restApi: RestApi
 ) {
     val loading = MutableStateFlow(true)
@@ -38,7 +40,7 @@ class GetDetailsUseCase(
                 error.value = false
                 items.value = toDetailsItems(details)
             }.onFailure {
-                logError("Error loading repository details", it)
+                logger.logError("Error loading repository details", it)
                 loading.value = false
                 error.value = true
             }

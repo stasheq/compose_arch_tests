@@ -8,7 +8,7 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
 val coreModule = module {
-    single { createHttpClient() }
+    single { createHttpClient(get()) }
     factoryOf(::RestApi)
     factoryOf(::GetReposListUseCase)
     factoryOf(::GetDetailsUseCase)

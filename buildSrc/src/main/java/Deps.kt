@@ -9,7 +9,7 @@ object Deps {
 
     object Kotlin {
         // https://kotlinlang.org/
-        const val version = "2.1.20"
+        const val version = "2.1.21"
         const val composePlugin = "org.jetbrains.kotlin.plugin.compose"
         const val multiplatformPlugin = "org.jetbrains.kotlin.multiplatform"
         const val jvmPlugin = "org.jetbrains.kotlin.jvm"
