@@ -55,6 +55,7 @@ kotlin {
             implementation(Deps.Jetpack.composeActivity)
             implementation(Deps.Ktor.androidEngine)
             implementation(Deps.Kotlin.coroutinesAndroid)
+            implementation(Deps.Jetpack.composeMaps)
         }
     }
 }

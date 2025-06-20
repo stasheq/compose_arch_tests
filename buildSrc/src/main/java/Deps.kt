@@ -38,6 +38,9 @@ object Deps {
 
         // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-viewmodel.html
         const val composeViewModel = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0-beta01"
+
+        // https://github.com/googlemaps/android-maps-compose
+        const val composeMaps = "com.google.maps.android:maps-compose:6.6.0"
     }
 
     object Ktor {

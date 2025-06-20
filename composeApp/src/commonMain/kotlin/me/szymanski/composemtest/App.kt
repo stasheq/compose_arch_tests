@@ -14,6 +14,7 @@ import org.koin.compose.KoinApplication
 @Preview
 fun App(
     logger: Logger,
+    mapView: @Composable () -> Unit,
     closeApp: () -> Unit,
 ) = KoinApplication(application = {
     koinModules(logger)
@@ -22,6 +23,6 @@ fun App(
         color = Colors.background(),
         modifier = Modifier.fillMaxSize()
     ) {
-        Navigation(closeApp)
+        Navigation(closeApp, mapView)
     }
 }

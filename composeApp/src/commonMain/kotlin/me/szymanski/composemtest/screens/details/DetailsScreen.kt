@@ -3,10 +3,13 @@ package me.szymanski.composemtest.screens.details
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import composemtest.composeapp.generated.resources.Res
 import composemtest.composeapp.generated.resources.icon_back
 import composemtest.composeapp.generated.resources.icon_error
@@ -20,7 +23,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DetailsScreen(
-    args: NavigationScreen.Details
+    args: NavigationScreen.Details,
+    mapView: @Composable () -> Unit,
 ) {
     val viewModel = koinViewModel<DetailsScreenViewModel>()
     viewModel.setArgs(args)
@@ -28,6 +32,9 @@ fun DetailsScreen(
     Column {
         val title by viewModel.title.collectAsState()
         TitleToolbar({ title }, { stringResource(Res.string.icon_back) }, viewModel::onBackClick)
+        Box(modifier = Modifier.fillMaxWidth().height(250.dp)) {
+            mapView()
+        }
         Box(
             modifier = Modifier.background(Colors.background())
         ) {

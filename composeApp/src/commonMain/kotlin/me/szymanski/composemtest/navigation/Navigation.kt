@@ -10,7 +10,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun Navigation(
-    closeApp: () -> Unit
+    closeApp: () -> Unit,
+    mapView: @Composable () -> Unit,
 ) {
     val viewModel = koinViewModel<NavigationViewModel>()
     val navController = rememberNavController()
@@ -19,7 +20,7 @@ fun Navigation(
     NavHost(
         navController = navController,
         startDestination = viewModel.initialScreen,
-        builder = { screensMap() }
+        builder = { screensMap(mapView) }
     )
 }
 
